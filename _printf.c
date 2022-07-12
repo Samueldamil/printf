@@ -1,10 +1,13 @@
 #include "main.h"
 #include <limits.h>
 #include <stdio.h>
+
 /**
  * _printf - produces output according to a format
- * @format: character string and it is composed of zero or more
- * dirctives
+ * @format: format string containing the characters and the specifiers
+ * Description: this function will call the get_print() function that will
+ * determine which printing function to call depending on the conversion
+ * specifiers contained into fmt
  * Return: length of the formatted output string
  */
 int _printf(const char *format, ...)
@@ -13,7 +16,7 @@ int _printf(const char *format, ...)
 	const char *p;
 	va_list arguments;
 	flags_t flags = {0, 0, 0};
-	
+
 	register int count = 0;
 
 	va_start(arguments, format);
@@ -37,11 +40,11 @@ int _printf(const char *format, ...)
 			count += (pfunc)
 				? pfunc(arguments, &flags)
 				: _printf("%%%c", *p);
-		}
-		else
+		} else
 			count += _putchar(*p);
 	}
 	_putchar(-1);
 	va_end(arguments);
 	return (count);
+
 }
